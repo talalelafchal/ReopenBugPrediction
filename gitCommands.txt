@@ -1,0 +1,4 @@
+git show --pretty="" --name-only 790a54a
+
+git log --first-parent --name-status --date=iso --pretty=format:"<commit-id>%h</commit-id><author-email>%ae</author-email><date>%ad</date><message>%s</message>" > ~/Desktop/log.txt
+
