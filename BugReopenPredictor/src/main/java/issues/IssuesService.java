@@ -172,16 +172,16 @@ public class IssuesService {
         JSONArray issueJSONArray = new JSONArray();
         for (BugIssue bugIssue : bugIssuesList
                 ) {
-            JSONObject reopenIssueJson = new JSONObject();
+            JSONObject bugIssueJson = new JSONObject();
 
-            reopenIssueJson.put("id", bugIssue.getIssueid());
-            reopenIssueJson.put("number", bugIssue.getNumber());
-            reopenIssueJson.put("title", bugIssue.getTitle());
-            reopenIssueJson.put("description", bugIssue.getDescription());
-            reopenIssueJson.put("opened_by", bugIssue.getOpenedBy());
-            reopenIssueJson.put("opened_on", bugIssue.getOpenedOn());
-            reopenIssueJson.put("reopen", bugIssue.isReopen());
-            reopenIssueJson.put("closed_on", bugIssue.getClosedOn());
+            bugIssueJson.put("id", bugIssue.getIssueid());
+            bugIssueJson.put("number", bugIssue.getNumber());
+            bugIssueJson.put("title", bugIssue.getTitle());
+            bugIssueJson.put("description", bugIssue.getDescription());
+            bugIssueJson.put("opened_by", bugIssue.getOpenedBy());
+            bugIssueJson.put("opened_on", bugIssue.getOpenedOn());
+            bugIssueJson.put("reopen", bugIssue.isReopen());
+            bugIssueJson.put("closed_on", bugIssue.getClosedOn());
 
             // comments
             JSONArray allCommentsArray = new JSONArray();
@@ -193,8 +193,8 @@ public class IssuesService {
                 commentParameter.put("text", commentObject.getText());
                 allCommentsArray.add(commentParameter);
             }
-            reopenIssueJson.put("comments", allCommentsArray);
-            issueJSONArray.add(reopenIssueJson);
+            bugIssueJson.put("comments", allCommentsArray);
+            issueJSONArray.add(bugIssueJson);
         }
 
         return issueJSONArray;
