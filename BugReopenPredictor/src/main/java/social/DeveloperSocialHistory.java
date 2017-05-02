@@ -132,8 +132,8 @@ public class DeveloperSocialHistory {
 
     //Social network strength: #pairs of developers who took part to the issue discussion that already collaborated in the past/#pairs of developers who took part to the issue discussion
 
-    public int SocialNetworkStrength(BugIssue bugIssue) {
-        int counter = 0;
+    public double SocialNetworkStrength(BugIssue bugIssue) {
+        double contribution = 0.0;
         List<CommentObject> commentList = bugIssue.getCommentList();
         if (commentList == null) {
             return 0;
@@ -142,23 +142,43 @@ public class DeveloperSocialHistory {
         if (commentList.size() > 1) {
             CommentsAnalyzer commentsAnalyzer = new CommentsAnalyzer(commentList);
             List<Pair> pairList = getPairList(commentsAnalyzer.getAllCommentersPair(), bugIssue.getOpenedOn());
-            for (Pair pair : pairList
-                    ) {
-                for (Pair allPair : listOfCollaboration
-                        ) {
-                    if (bugOpenDateToMillis(pair.getDate()) > bugOpenDateToMillis(allPair.getDate()) &&
-                            (
-                                    (pair.getProgrammer1().equals(allPair.getProgrammer1()) && pair.getProgrammer2().equals(allPair.getProgrammer2())) ||
-                                            (pair.getProgrammer1().equals(allPair.getProgrammer2()) && pair.getProgrammer2().equals(allPair.getProgrammer1()))
-                            )
-                            ) {
-                        counter++;
-                    }
-                }
+            if (pairList.size() > 0) {
+                contribution = getSocialContribution(pairList);
             }
         }
-        return counter;
+        return contribution;
     }
+
+    private double getSocialContribution(List<Pair> pairList) {
+        double counter = 0.0;
+        for (Pair pair : pairList
+                ) {
+            if (collaborated(pair)) {
+                counter++;
+            }
+
+        }
+
+        return counter / pairList.size();
+
+    }
+
+
+    private boolean collaborated(Pair pair) {
+        for (Pair allPair : listOfCollaboration
+                ) {
+            if (bugOpenDateToMillis(pair.getDate()) > bugOpenDateToMillis(allPair.getDate()) &&
+                    (
+                            (pair.getProgrammer1().equals(allPair.getProgrammer1()) && pair.getProgrammer2().equals(allPair.getProgrammer2())) ||
+                                    (pair.getProgrammer1().equals(allPair.getProgrammer2()) && pair.getProgrammer2().equals(allPair.getProgrammer1()))
+                    )
+                    ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private List<Pair> getPairList(List<List<String>> allCommentersPair, String openedOn) {
         List<Pair> pairList = new ArrayList<>();

@@ -38,7 +38,7 @@ public class MetricCalculator {
                 numberOfCommenter = commentsAnalyzer.getNumberOfCommenter();
             }
 
-            int issueDevelopperCommitExperience = developerSocialHistory.numberOfPastCommitsOfDevelopperWhoOpenedTheBugIssue(bugIssue.getOpenedBy(), bugIssue.getOpenedOn());
+            int issueDeveloperCommitExperience = developerSocialHistory.numberOfPastCommitsOfDevelopperWhoOpenedTheBugIssue(bugIssue.getOpenedBy(), bugIssue.getOpenedOn());
             int issueDeveloperFixCommitExperience = developerSocialHistory.numberofBugFixingCommitOfDevelopperWhoOpenedTheBugIssue(bugIssue.getOpenedBy(), bugIssue.getOpenedOn());
             int fixingDeveloperCommitExperience = 0;
             int fixingDeveloperFixingExperience = 0;
@@ -48,10 +48,11 @@ public class MetricCalculator {
                 fixingDeveloperFixingExperience = developerSocialHistory.numberOfFixCommitsOftheDeveloperWhoFixedTheBug(fixCommit.getAuthorName(), fixCommit.getDate());
             }
 
-            int socialStrength = developerSocialHistory.SocialNetworkStrength(bugIssue);
+            double socialStrength = developerSocialHistory.SocialNetworkStrength(bugIssue);
 
-            System.out.println(bugIssue.getNumber() + " stepToreproduce : " + stepToReproduce + " expectedBeh : "
-                    + expectedBehaviour + " numberOfCommenter : " + numberOfCommenter + " description length : " + descriptionLength + " issueDevelopperCommitExperience : " + issueDevelopperCommitExperience
+
+            System.out.println(bugIssue.getNumber() + " stepToReproduce : " + stepToReproduce + " expectedBeh : "
+                    + expectedBehaviour + " numberOfCommenter : " + numberOfCommenter + " description length : " + descriptionLength + " issueDeveloperCommitExperience : " + issueDeveloperCommitExperience
                     + " issueDeveloperFixCommitExperience : " + issueDeveloperFixCommitExperience + " fixingDeveloperCommitExperience :  " + fixingDeveloperCommitExperience
                     + " fixingDeveloperFixingExperience : " + fixingDeveloperFixingExperience + " socialStrength : " + socialStrength);
         }

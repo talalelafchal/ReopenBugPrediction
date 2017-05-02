@@ -22,7 +22,8 @@ import java.util.List;
  */
 public class test {
     public static void main(String[] args) throws IOException, ParseException {
-
+     double a = 0.05;
+        System.out.println(a);
 
         List<BugIssue> listBug = new IssueConverter("output/elasticsearchBugIssues.json").getIssuesList();
 //        List<CommitObject> listCommit = new CommitConverter("output/logElasticSearch.txt").getCommitList();
@@ -36,18 +37,18 @@ public class test {
 //        System.out.println(map.size());
 
 
-        for (BugIssue bugIssue : listBug
-                ) {
-            List<CommentObject> commentList = bugIssue.getCommentList();
-            if (commentList != null) {
-                CommentsAnalyzer commentsAnalyzer = new CommentsAnalyzer(commentList);
-                int numberOfCommenters = commentsAnalyzer.getNumberOfCommenter();
-                List<List<String>> pairs = commentsAnalyzer.getAllCommentersPair();
-                System.out.println(pairs.size());
-
-            }
-
-        }
+//        for (BugIssue bugIssue : listBug
+//                ) {
+//            List<CommentObject> commentList = bugIssue.getCommentList();
+//            if (commentList != null) {
+//                CommentsAnalyzer commentsAnalyzer = new CommentsAnalyzer(commentList);
+//                int numberOfCommenters = commentsAnalyzer.getNumberOfCommenter();
+//                List<List<String>> pairs = commentsAnalyzer.getAllCommentersPair();
+//                System.out.println(pairs.size());
+//
+//            }
+//
+//        }
 
     }
 
