@@ -14,6 +14,7 @@ public class LoginNameService {
     public LoginNameService(String login) {
         this.login = login;
     }
+
     public String getName() throws ParseException {
         String requstUrl = url + login;
         JSONObject userObject = new GitHubRESTService("talalelafchal", "ZI6S5N7VkuPW", requstUrl).getJsonObjectResponse();

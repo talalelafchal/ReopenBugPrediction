@@ -38,7 +38,9 @@ public class IssueConverter {
             String openedBy = (String) jsonBugIssue.get("opened_by");
             String openedOn = (String) jsonBugIssue.get("opened_on");
             boolean reopened = (boolean) jsonBugIssue.get("reopen");
+            String reopenOn = (String) jsonBugIssue.get("reopenOn");
             String closedOn = (String) jsonBugIssue.get("closed_on");
+            String closedBy = (String) jsonBugIssue.get("closed_by");
             List<CommentObject> commentList = new ArrayList<>();
             JSONArray comments = (JSONArray) jsonBugIssue.get("comments");
 
@@ -52,11 +54,10 @@ public class IssueConverter {
                     commentList.add(commentObject);
                 }
             }
-            BugIssue bugIssue = new BugIssue(issueId, number, title, description, commentList, openedBy, openedOn, reopened, closedOn);
+            BugIssue bugIssue = new BugIssue(issueId, number, title, description, commentList, openedBy, openedOn, reopened, closedOn, reopenOn, closedBy);
             bugIssuesList.add(bugIssue);
 
         }
-        System.out.println("bugList size = " + bugIssuesList.size());
         return bugIssuesList;
     }
 }

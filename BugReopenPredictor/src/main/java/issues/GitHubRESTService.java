@@ -53,6 +53,7 @@ public class GitHubRESTService {
                     .get(ClientResponse.class);
 
             if (response.getStatus() != 200) {
+                System.out.println(response.toString());
                 throw new RuntimeException("Failed : HTTP error code : "
                         + response.getStatus());
             }

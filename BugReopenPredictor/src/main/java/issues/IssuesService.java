@@ -41,7 +41,7 @@ public class IssuesService {
                 for (int k = 0; k < jsonArrayLabels.size(); k++) {
                     JSONObject jsonObjectLabel = (JSONObject) jsonArrayLabels.get(k);
                     String labelName = (String) jsonObjectLabel.get("name");
-                    if (labelName != null && labelName.equals("bug")) {
+                    if (labelName != null && labelName.toLowerCase().contains("bug")) {
                         url = "https://api.github.com/repos/" + owner + "/" + repo + "/issues/" + number + "/events?per_page=100";
                         JSONArray jsonArrayEvent = new GitHubRESTService(username, password, url).getJsonArrayResponse();
                         //check reopen bug
@@ -55,15 +55,19 @@ public class IssuesService {
                     }
                 }
             }
+            page++;
         }
         return counter;
     }
 
 
     public void createBugJsonIssuesFile(String fileName) throws ParseException, IOException, InterruptedException {
+        //get issue information from Git api
         List<BugIssue> bugIssueList = createJsonIssues();
         System.out.println("# of bugs issues = " + bugIssueList.size());
+        // put information in a JsonFile
         JSONArray bugIssueArray = createJsonObject(bugIssueList);
+        // write it to a File
         writeJsonArrayToFile(bugIssueArray, fileName);
     }
 
@@ -74,7 +78,7 @@ public class IssuesService {
         ArrayList<BugIssue> bugIssuesList = new ArrayList();
         for (int i = 0; i <= numberOfPages; i++) {
             String url = "https://api.github.com/repos/" + owner + "/" + repo + "/issues?state=all&per_page=1000&page=" + page;
-            if (requestCounter == 4999) {
+            if (requestCounter == 4900) {
                 System.out.println("sleeping ......");
                 System.out.println(System.currentTimeMillis());
                 Thread.sleep(1000 * 60 * 62);
@@ -91,7 +95,7 @@ public class IssuesService {
                 for (int k = 0; k < jsonArrayLabels.size(); k++) {
                     JSONObject jsonObjectLabel = (JSONObject) jsonArrayLabels.get(k);
                     String labelName = (String) jsonObjectLabel.get("name");
-                    if (labelName != null && labelName.equals("bug")) {
+                    if (labelName != null && labelName.toLowerCase().contains("bug")) {
                         String id = String.valueOf((long) jsonIssue.get("id"));
                         String title = (String) jsonIssue.get("title");
                         String description = (String) jsonIssue.get("body");
@@ -99,14 +103,31 @@ public class IssuesService {
                         String closedOn = (String) jsonIssue.get("closed_at");
                         JSONObject user = (JSONObject) jsonIssue.get("user");
                         String openedBy = (String) user.get("login");
+                        String closedBy = null;
+                        if (closedOn != null) {
+                            url = "https://api.github.com/repos/" + owner + "/" + repo + "/issues/" + number;
+                            if (requestCounter == 4900) {
+                                System.out.println("Sleeping .....");
+                                System.out.println(System.currentTimeMillis());
+                                Thread.sleep(1000 * 60 * 62);
+                                requestCounter = 0;
+                                System.out.println("working .....");
+                            }
+                            JSONObject jsonObject = new GitHubRESTService(username, password, url).getJsonObjectResponse();
+                            requestCounter++;
+                            JSONObject closedByJsonObject = (JSONObject) jsonObject.get("closed_by");
 
+                            if (closedByJsonObject != null) {
+                                closedBy = (String) closedByJsonObject.get("login");
+                            }
+                        }
                         long commentsNumber = (long) jsonIssue.get("comments");
                         //get comments
                         List<CommentObject> commentList = new ArrayList<>();
                         if (commentsNumber > 0) {
 
                             url = "https://api.github.com/repos/" + owner + "/" + repo + "/issues/" + number + "/comments?per_page=100";
-                            if (requestCounter == 4999) {
+                            if (requestCounter == 4900) {
                                 System.out.println("Sleeping .....");
                                 System.out.println(System.currentTimeMillis());
                                 Thread.sleep(1000 * 60 * 62);
@@ -115,6 +136,7 @@ public class IssuesService {
                             }
                             JSONArray jsonCommentsArray = new GitHubRESTService(username, password, url).getJsonArrayResponse();
                             requestCounter++;
+
                             for (int m = 0; m < jsonCommentsArray.size(); m++) {
                                 JSONObject object = (JSONObject) jsonCommentsArray.get(m);
                                 String date = (String) object.get("created_at");
@@ -129,7 +151,7 @@ public class IssuesService {
 
 
                         url = "https://api.github.com/repos/" + owner + "/" + repo + "/issues/" + number + "/events?per_page=100";
-                        if (requestCounter == 4999) {
+                        if (requestCounter == 4900) {
                             System.out.println("Sleeping .....");
                             System.out.println(System.currentTimeMillis());
                             Thread.sleep(1000 * 60 * 62);
@@ -140,6 +162,7 @@ public class IssuesService {
                         requestCounter++;
                         //check for reopen Bug
                         boolean reopen = false;
+                        String reopenOn = null;
                         for (int l = 0; l < jsonArrayEvent.size(); l++) {
                             JSONObject objectEvent = (JSONObject) jsonArrayEvent.get(l);
 
@@ -147,12 +170,14 @@ public class IssuesService {
                             if (event.equals("reopened")) {
                                 System.out.println("---------------- reopened bug --------------");
                                 System.out.println(number);
-                                System.out.println("---------------------------------------------");
                                 reopen = true;
+                                reopenOn = (String) objectEvent.get("created_at");
+                                System.out.println(reopenOn);
+                                System.out.println("---------------------------------------------");
                             }
                         }
 
-                        BugIssue bugIssue = new BugIssue(id, number, title, description, commentList, openedBy, openedOn, reopen, closedOn);
+                        BugIssue bugIssue = new BugIssue(id, number, title, description, commentList, openedBy, openedOn, reopen, closedOn, reopenOn, closedBy);
                         bugIssuesList.add(bugIssue);
 
                     }
@@ -181,7 +206,9 @@ public class IssuesService {
             bugIssueJson.put("opened_by", bugIssue.getOpenedBy());
             bugIssueJson.put("opened_on", bugIssue.getOpenedOn());
             bugIssueJson.put("reopen", bugIssue.isReopen());
+            bugIssueJson.put("reopenOn", bugIssue.getReopenOn());
             bugIssueJson.put("closed_on", bugIssue.getClosedOn());
+            bugIssueJson.put("closed_by", bugIssue.getClosedBy());
 
             // comments
             JSONArray allCommentsArray = new JSONArray();

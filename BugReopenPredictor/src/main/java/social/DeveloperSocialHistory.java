@@ -2,7 +2,6 @@ package social;
 
 import commit.CommitObject;
 import issues.BugIssue;
-import issues.BugIssueAnalyzer;
 import issues.CommentObject;
 import issues.CommentsAnalyzer;
 import org.joda.time.DateTime;
@@ -33,7 +32,7 @@ public class DeveloperSocialHistory {
         this.commitList = commitList;
         this.bugIssuesList = bugIssuesList;
         loginNameMap = createHashMap();
-        HashMap<BugIssue, CommitObject> map = new MapCommitFixBugIssue(bugIssuesList, commitList).mapCommitFixToBugIssue();
+        HashMap<BugIssue, CommitObject> map = new MapCommitFixBugIssue(bugIssuesList, commitList, mapFilePath).mapCommitFixToBugIssue();
         this.fixCommitList = new ArrayList<>(map.values());
         listOfCollaboration = getCollaborationList();
     }
@@ -142,7 +141,9 @@ public class DeveloperSocialHistory {
         if (commentList.size() > 1) {
             CommentsAnalyzer commentsAnalyzer = new CommentsAnalyzer(commentList);
             List<Pair> pairList = getPairList(commentsAnalyzer.getAllCommentersPair(), bugIssue.getOpenedOn());
-            if (pairList.size() > 0) {
+            if (pairList.size() == 0) {
+                return 1;
+            } else {
                 contribution = getSocialContribution(pairList);
             }
         }

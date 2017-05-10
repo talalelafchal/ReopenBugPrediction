@@ -18,10 +18,12 @@ public class BugIssue {
     String openedOn;
 
     boolean reopen;
-
+    String reopenOn;
     String closedOn;
+    String closedBy;
 
-    public BugIssue(String issueid, String number, String title, String description, List<CommentObject> commentList, String openedBy, String openedOn, boolean reopen, String closedOn) {
+    public BugIssue(String issueid, String number, String title, String description, List<CommentObject> commentList, String openedBy, String openedOn, boolean reopen,
+                    String closedOn,String reopenOn, String closedBy) {
         this.issueid = issueid;
         this.number = number;
         this.title = title;
@@ -31,6 +33,8 @@ public class BugIssue {
         this.openedOn = openedOn;
         this.reopen = reopen;
         this.closedOn = closedOn;
+        this.reopenOn = reopenOn;
+        this.closedBy= closedBy;
     }
 
     public String getIssueid() {
@@ -67,5 +71,13 @@ public class BugIssue {
 
     public String getClosedOn() {
         return closedOn;
+    }
+
+    public String getReopenOn() {
+        return reopenOn;
+    }
+
+    public String getClosedBy() {
+        return closedBy;
     }
 }

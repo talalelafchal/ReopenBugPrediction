@@ -16,12 +16,11 @@ import java.util.List;
  */
 public class NameLoginMapFile {
     private static final String DELIMITER = " = ";
-    String path = "output/elasticsearchBugIssues.json";
     String fileName;
     List<BugIssue> bugIssuesList;
 
-    public NameLoginMapFile(String fileName) throws IOException, ParseException {
-        this.bugIssuesList = new IssueConverter(path).getIssuesList();
+    public NameLoginMapFile(String fileName, String bugIssuesJsonFilePath) throws IOException, ParseException {
+        this.bugIssuesList = new IssueConverter(bugIssuesJsonFilePath).getIssuesList();
         this.fileName = fileName;
         HashSet<String> users = getListOfUsers();
         writeMapToFile(users);
@@ -35,7 +34,7 @@ public class NameLoginMapFile {
 
             for (String login : map.keySet()) {
                 String name = map.get(login);
-                writer.println(login + DELIMITER+ name);
+                writer.println(login + DELIMITER + name);
             }
             writer.close();
         } catch (IOException e) {
@@ -64,6 +63,7 @@ public class NameLoginMapFile {
                 users.add(commentObject.getAuthor());
             }
         }
+        users.remove("codecov[bot]");
         return users;
     }
 
