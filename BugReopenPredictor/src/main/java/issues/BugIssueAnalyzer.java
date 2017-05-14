@@ -21,8 +21,8 @@ public class BugIssueAnalyzer {
         if (description == null) {
             return false;
         }
-        if (description.contains("should") || description.contains("must") || description.contains("instead of")
-                || description.contains("behaviour")) {
+        if (description.toLowerCase().contains("should") || description.toLowerCase().contains("must") || description.toLowerCase().contains("instead of")
+                || description.toLowerCase().contains("behaviour")) {
             behaviour = true;
         }
         return behaviour;
@@ -34,9 +34,9 @@ public class BugIssueAnalyzer {
             return false;
         }
 
-        if ((description.contains("step") || description.contains("can")) &&
-                (description.contains("reproduce") || description.contains("recreate") ||
-                        description.contains("observed"))) {
+        if ((description.toLowerCase().contains("step") || description.toLowerCase().contains("can")) &&
+                (description.toLowerCase().contains("reproduce") || description.toLowerCase().contains("recreate") ||
+                        description.toLowerCase().contains("observed"))) {
             stepBool = true;
         }
 

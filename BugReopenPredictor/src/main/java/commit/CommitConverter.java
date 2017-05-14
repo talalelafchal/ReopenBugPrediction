@@ -36,7 +36,7 @@ public class CommitConverter {
             String authorName = doc.select("author-name").get(0).text();
             String date = doc.select("date").get(0).text();
             String message = doc.select("message").get(0).text();
-            String bugIssueId = null;
+
             List<String> modifiedFiles = new ArrayList<>();
             for (int i = 1; i < commitArray.length ; i++) {
                 String modifiedFileLine =  commitArray[i];

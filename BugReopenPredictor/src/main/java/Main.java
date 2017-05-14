@@ -29,30 +29,35 @@ public class Main {
         br.close();
 
 
-      //commit.GitCommands.cloneGitRepositoryUnix(url,destinationFolder,gitCommand,destinationFolder);
-      //GitCommands.logFile(destinationFolder,gitCommand,destinationFolder,"spring-boot");
+        //commit.GitCommands.cloneGitRepositoryUnix(url,destinationFolder,gitCommand,destinationFolder);
+        //GitCommands.logFile(destinationFolder,gitCommand,destinationFolder,"spring-boot");
 
 //        int reopenBug= new IssuesService(username,password,92,"spring-projects","spring-boot").getNumberOfReopenBug();
 //        System.out.println("# of reopen Bug " + reopenBug);
 //        createBugIssuesFile("output/springBugIssues.json");
 
 //
-       // new NameLoginMapFile("output/springMapFile.txt","output/springBugIssues.json");
-        MetricCalculator calculator = new metric.MetricCalculator("RxJava",destinationFolder,"output/rxJavaBugIssues.json",
+        // new NameLoginMapFile("output/springMapFile.txt","output/springBugIssues.json");
+
+//        MetricCalculator calculator = new metric.MetricCalculator("elasticsearch", destinationFolder, "output/elasticsearchBugIssues.json",
+//                "output/logElasticSearch.txt", "output/elasticMapFile.txt");
+//        calculator.calculateAllMetrics("output/elastic");
+
+//        MetricCalculator calculator = new metric.MetricCalculator("spring-boot", destinationFolder, "output/springBugIssues.json",
+//                "output/logSpring.txt", "output/springMapFile.txt");
+//        calculator.calculateAllMetrics("output/spring");
+
+        MetricCalculator calculator = new metric.MetricCalculator("RxJava", destinationFolder, "output/rxJavaBugIssues.json",
                 "output/logRx.txt", "output/rxMapFile.txt");
-        List<Metric> metricList = calculator.calculateAllMetrics();
-        calculator.writeToFile("output/rx.arff",metricList);
+        calculator.calculateAllMetrics("output/rx");
 
     }
 
 
     public static void createBugIssuesFile(String fileName) throws ParseException, InterruptedException, IOException {
-        IssuesService issuesService = new IssuesService(username,password,92,"spring-projects","spring-boot");
+        IssuesService issuesService = new IssuesService(username, password, 92, "spring-projects", "spring-boot");
         issuesService.createBugJsonIssuesFile(fileName);
     }
-
-
-
 
 
 }

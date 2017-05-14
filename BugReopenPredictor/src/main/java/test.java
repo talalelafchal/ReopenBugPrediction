@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
  */
 public class test {
     public static void main(String[] args) throws IOException, ParseException, InterruptedException {
-//        List<CommitObject> listCommit = new CommitConverter("output/logSpring.txt").getCommitList();
-//        List<BugIssue> listBug = new IssueConverter("output/springBugIssues.json").getIssuesList();
+        List<CommitObject> listCommit = new CommitConverter("output/logElasticSearch.txt").getCommitList();
+        List<BugIssue> listBug = new IssueConverter("output/elasticsearchBugIssues.json").getIssuesList();
 //        HashMap<BugIssue, CommitObject> map = new MapCommitFixBugIssue(listBug, listCommit,"output/springMapFile.txt").mapCommitFixToBugIssue();
 //        int reopen = map.keySet().stream().filter(x -> x.isReopen() == true).collect(Collectors.toList()).size();
 //        System.out.println("# of issue bugs : " + map.size());
@@ -34,10 +34,16 @@ public class test {
         String gitCommand = br.readLine();
         br.close();
 
-        int reopenBug = new IssuesService(username, password, 44, "spring-projects", "spring-security").getNumberOfReopenBug();
-        System.out.println("# of reopen Bug " + reopenBug);
+    //    int reopenBug = new IssuesService(username, password, 44, "spring-projects", "spring-security").getNumberOfReopenBug();
+      //  System.out.println("# of reopen Bug " + reopenBug);
 
-//        HashMap<BugIssue,CommitObject> map = new MapCommitFixBugIssue(listBug,listCommit).mapCommitFixToBugIssue();
+        HashMap<BugIssue,CommitObject> map = new MapCommitFixBugIssue(listBug,listCommit,"output/elasticMapFile.txt").mapCommitFixToBugIssue();
+        int reopened = map.keySet().stream().filter(x -> x.isReopen()).collect(Collectors.toList()).size();
+        System.out.println("# of reopened bugs = " + reopened);
+
+        int notReopened = map.keySet().stream().filter(x -> !x.isReopen()).collect(Collectors.toList()).size();
+        System.out.println("# of not reopened bugs = " + notReopened);
+
 //        for (BugIssue key: map.keySet()
 //             ) {
 //            int index = listCommit.indexOf(map.get(key));

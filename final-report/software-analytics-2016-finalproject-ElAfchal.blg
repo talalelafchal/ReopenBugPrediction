@@ -1,0 +1,101 @@
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: software-analytics-2016-finalproject-ElAfchal.aux
+The style file: ACM-Reference-Format.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Database file #1: bibliography.bib
+Name 1 in "T. Zimmermann, N. Nagappan, P. Guo, and B. Murphy." has a comma at the end for entry Zimmerman:reopen
+while executing---line 3256 of file ACM-Reference-Format.bst
+Name 1 in "T. Zimmermann, N. Nagappan, P. Guo, and B. Murphy." has a comma at the end for entry Zimmerman:reopen
+while executing---line 3256 of file ACM-Reference-Format.bst
+Name 1 in "T. Zimmermann, N. Nagappan, P. Guo, and B. Murphy." has a comma at the end for entry Zimmerman:reopen
+while executing---line 3256 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3256 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3256 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3256 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3256 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3256 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3256 of file ACM-Reference-Format.bst
+Name 1 in "T. Zimmermann, N. Nagappan, P. Guo, and B. Murphy." has a comma at the end for entry Zimmerman:reopen
+while executing---line 3302 of file ACM-Reference-Format.bst
+Name 1 in "T. Zimmermann, N. Nagappan, P. Guo, and B. Murphy." has a comma at the end for entry Zimmerman:reopen
+while executing---line 3302 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3302 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3302 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3302 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3302 of file ACM-Reference-Format.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Name 1 in "T. Zimmermann, N. Nagappan, P. Guo, and B. Murphy." has a comma at the end for entry Zimmerman:reopen
+while executing---line 3400 of file ACM-Reference-Format.bst
+Name 1 in "T. Zimmermann, N. Nagappan, P. Guo, and B. Murphy." has a comma at the end for entry Zimmerman:reopen
+while executing---line 3400 of file ACM-Reference-Format.bst
+Name 1 in "T. Zimmermann, N. Nagappan, P. Guo, and B. Murphy." has a comma at the end for entry Zimmerman:reopen
+while executing---line 3400 of file ACM-Reference-Format.bst
+Warning--unusual to have number, but no volume, for Zimmerman:reopen
+Warning--page numbers missing in both pages and numpages fields in Zimmerman:reopen
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3400 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3400 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3400 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3400 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3400 of file ACM-Reference-Format.bst
+Too many commas in name 1 of "X.Xia, D.Lo, E.Shihab, Xinyu Wang, B.Zhou" for entry Shihab:wcre
+while executing---line 3400 of file ACM-Reference-Format.bst
+Warning--empty address in Shihab:wcre
+You've used 2 entries,
+            5551 wiz_defined-function locations,
+            1299 strings with 15573 characters,
+and the built_in function-call counts, 1811 in all, are:
+= -- 236
+> -- 58
+< -- 1
++ -- 16
+- -- 24
+* -- 115
+:= -- 205
+add.period$ -- 12
+call.type$ -- 2
+change.case$ -- 11
+chr.to.int$ -- 2
+cite$ -- 5
+duplicate$ -- 135
+empty$ -- 104
+format.name$ -- 28
+if$ -- 419
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 6
+newline$ -- 56
+num.names$ -- 16
+pop$ -- 54
+preamble$ -- 1
+purify$ -- 21
+quote$ -- 0
+skip$ -- 36
+stack$ -- 0
+substring$ -- 123
+swap$ -- 8
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 22
+warning$ -- 3
+while$ -- 17
+width$ -- 0
+write$ -- 73
+(There were 24 error messages)

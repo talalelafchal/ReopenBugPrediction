@@ -20,7 +20,7 @@ import java.util.Scanner;
 public class MapCommitFixBugIssue {
     List<BugIssue> bugIssuesList;
     List<CommitObject> commitsList;
-    String mapFilePath ;
+    String mapFilePath;
 
     public MapCommitFixBugIssue(List<BugIssue> bugIssuesList, List<CommitObject> commitsList, String mapFilePath) throws FileNotFoundException {
         this.bugIssuesList = bugIssuesList;
@@ -38,7 +38,7 @@ public class MapCommitFixBugIssue {
             for (BugIssue bugIssue : bugIssuesList
                     ) {
                 String issueNumber = bugIssue.getNumber();
-                if (match(message, issueNumber)) {
+                if (match(message, issueNumber) && commit.getModifiedFiles().size() > 0) {
                     map.put(bugIssue, commit);
                 }
             }
@@ -49,6 +49,9 @@ public class MapCommitFixBugIssue {
 
     public HashMap<BugIssue, CommitObject> mapCommitFixToBugIssue() throws FileNotFoundException {
         HashMap<BugIssue, CommitObject> map = mapCommitFixToBugIssueByIssueNumber();
+        System.out.println("First Map approach : " + map.size());
+
+
         HashMap<String, String> nameMap = createHashMap();
         for (CommitObject commit : commitsList
                 ) {
@@ -66,12 +69,12 @@ public class MapCommitFixBugIssue {
                             ) {
                         if (bugIssue.isReopen()) {
                             long reopenDate = bugOpenDateToMillis(bugIssue.getReopenOn());
-                            if (reopenDate > commitDate) {
+                            if (reopenDate > commitDate && commit.getModifiedFiles().size()>0) {
                                 map.put(bugIssue, commit);
                             }
                         } else if (bugIssue.getClosedOn() != null) {
                             long bugIssueCloseDate = bugOpenDateToMillis(bugIssue.getClosedOn());
-                            if (commitDate < bugIssueCloseDate) {
+                            if (commitDate < bugIssueCloseDate && commit.getModifiedFiles().size()>0) {
                                 map.put(bugIssue, commit);
                             }
                         }
@@ -80,12 +83,12 @@ public class MapCommitFixBugIssue {
                     if ((bugOpenedBy != null) && bugOpenedBy.equals(commitAuthor)) {
                         if (bugIssue.isReopen()) {
                             long reopenDate = bugOpenDateToMillis(bugIssue.getReopenOn());
-                            if (reopenDate > commitDate) {
+                            if (reopenDate > commitDate && commit.getModifiedFiles().size()>0) {
                                 map.put(bugIssue, commit);
                             }
                         } else if (bugIssue.getClosedOn() != null) {
                             long bugIssueCloseDate = bugOpenDateToMillis(bugIssue.getClosedOn());
-                            if (commitDate < bugIssueCloseDate) {
+                            if (commitDate < bugIssueCloseDate && commit.getModifiedFiles().size()>0) {
                                 map.put(bugIssue, commit);
                             }
                         }
@@ -93,6 +96,7 @@ public class MapCommitFixBugIssue {
                 }
             }
         }
+        System.out.println("second approach : " + map.size());
         return map;
     }
 

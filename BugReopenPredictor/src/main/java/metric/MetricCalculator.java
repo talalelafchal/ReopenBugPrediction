@@ -40,7 +40,7 @@ public class MetricCalculator {
 
     }
 
-    public List<Metric> calculateAllMetrics() throws IOException, ParseException, InterruptedException {
+    public void calculateAllMetrics(String fileName) throws IOException, ParseException, InterruptedException {
 
         FileInputStream fs = new FileInputStream("config.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(fs));
@@ -86,180 +86,181 @@ public class MetricCalculator {
 
             double socialStrength = developerSocialHistory.SocialNetworkStrength(bugIssue);
 
-            // Ck metric calculation Fix Commit
-            GitCommands.applyCheckout(fixCommit.getId(), destinationFolder, gitCommand, destinationFolder, repoDir);
-            copyFiles(fixCommit.getModifiedFiles());
+            if (fixCommit.getModifiedFiles().size() > 0) {
+
+                // Ck metric calculation Fix Commit
+                GitCommands.applyCheckout(fixCommit.getId(), destinationFolder, gitCommand, destinationFolder, repoDir);
+                copyFiles(fixCommit.getModifiedFiles());
 
 
-            CKReport ckFix = new CK().calculate(modifiedFilesDir);
-            Iterator itFix = ckFix.all().iterator();
-            List<Integer> locFix = new ArrayList<>();
-            List<Integer> wmcFix = new ArrayList<>();
-            while (itFix.hasNext()) {
-                CKNumber ckNumberFix = (CKNumber) itFix.next();
-                locFix.add(ckNumberFix.getLoc());
-                wmcFix.add(ckNumberFix.getWmc());
+                CKReport ckFix = new CK().calculate(modifiedFilesDir);
+                Iterator itFix = ckFix.all().iterator();
+                List<Integer> locFix = new ArrayList<>();
+                List<Integer> wmcFix = new ArrayList<>();
+                while (itFix.hasNext()) {
+                    CKNumber ckNumberFix = (CKNumber) itFix.next();
+                    locFix.add(ckNumberFix.getLoc());
+                    wmcFix.add(ckNumberFix.getWmc());
+                }
+
+                double locFixMean = getMean(locFix);
+                double locFixMedian = getMedian(locFix);
+                double wmcFixMean = getMean(wmcFix);
+                double wmcFixMedian = getMedian(wmcFix);
+
+                // Ck metric calculation PreFix Commit
+                //checkout to previousCommit
+                GitCommands.applyCheckout(fixCommit.getId() + "^", destinationFolder, gitCommand, destinationFolder, repoDir);
+                //copy the files which has been modified in the Fix commit
+                copyFiles(fixCommit.getModifiedFiles());
+
+                //Ck attributes
+                CKReport ckPrefix = new CK().calculate(modifiedFilesDir);
+                Iterator itPreFix = ckPrefix.all().iterator();
+                List<Integer> locPreFix = new ArrayList<>();
+                List<Integer> wmcPreFix = new ArrayList<>();
+                List<Integer> CBO = new ArrayList<>();
+                List<Integer> DIT = new ArrayList<>();
+                List<Integer> NOC = new ArrayList<>();
+                List<Integer> NOF = new ArrayList<>();
+                List<Integer> NOPF = new ArrayList<>();
+                List<Integer> NOSF = new ArrayList<>();
+                List<Integer> NOM = new ArrayList<>();
+                List<Integer> NOPM = new ArrayList<>();
+                List<Integer> NOSM = new ArrayList<>();
+                List<Integer> NOSI = new ArrayList<>();
+                List<Integer> RFC = new ArrayList<>();
+                List<Integer> LCOM = new ArrayList<>();
+
+                while (itPreFix.hasNext()) {
+                    CKNumber ckNumberPreFix = (CKNumber) itPreFix.next();
+                    locPreFix.add(ckNumberPreFix.getLoc());
+                    wmcPreFix.add(ckNumberPreFix.getWmc());
+                    CBO.add(ckNumberPreFix.getCbo());
+                    DIT.add(ckNumberPreFix.getDit());
+                    NOC.add(ckNumberPreFix.getNoc());
+                    NOF.add(ckNumberPreFix.getNof());
+                    NOPF.add(ckNumberPreFix.getNopf());
+                    NOSF.add(ckNumberPreFix.getNosf());
+                    NOM.add(ckNumberPreFix.getNom());
+                    NOPM.add(ckNumberPreFix.getNopm());
+                    NOSM.add(ckNumberPreFix.getNosm());
+                    NOSI.add(ckNumberPreFix.getNosi());
+                    RFC.add(ckNumberPreFix.getRfc());
+                    LCOM.add(ckNumberPreFix.getLcom());
+                }
+
+                double locPreFixMean = getMean(locPreFix);
+                double locPreFixMedian = getMedian(locPreFix);
+
+                double wmcPreFixMean = getMean(wmcPreFix);
+                double wmcPreFixMedian = getMedian(wmcPreFix);
+
+                double CBOMean = getMean(CBO);
+                double CBOMedian = getMedian(CBO);
+
+                double DITMean = getMean(DIT);
+                double DITMedian = getMedian(DIT);
+
+                double NOCMean = getMean(NOC);
+                double NOCMedian = getMedian(NOC);
+
+                double NOFMean = getMean(NOF);
+                double NOFMedian = getMedian(NOF);
+
+                double NOPFMean = getMean(NOPF);
+                double NOPFMedian = getMedian(NOPF);
+
+                double NOSFMean = getMean(NOSF);
+                double NOSFMedian = getMedian(NOSF);
+
+                double NOMMean = getMean(NOM);
+                double NOMMedian = getMedian(NOM);
+
+                double NOPMMean = getMean(NOPM);
+                double NOPMMedian = getMedian(NOPM);
+
+                double NOSMMean = getMean(NOSM);
+                double NOSMMedian = getMedian(NOSM);
+
+                double NOSIMean = getMean(NOSF);
+                double NOSIMedian = getMedian(NOSF);
+
+                double RFCMean = getMean(RFC);
+                double RFCMedian = getMedian(RFC);
+
+                double LCOMMean = getMean(LCOM);
+                double LCOMMedian = getMedian(LCOM);
+
+
+                List<Double> readabilityList = getReadability(modifiedFilesDir);
+                double readabilityMean = getMeanDouble(readabilityList);
+                double readabilityMedian = getMedianDouble(readabilityList);
+
+                List<Double> CD = getCommentDensity(modifiedFilesDir);
+                double cdMean = getMeanDouble(CD);
+                double cdMedian = getMedianDouble(CD);
+
+                double deltaWMCmean = wmcFixMean - wmcPreFixMean;
+                double delaWMCmedian = wmcFixMedian - wmcPreFixMedian;
+
+
+                //create Metric object
+
+
+                Metric metric = new Metric(((stepToReproduce) ? 1.0 : 0.0)
+                        , ((expectedBehaviour) ? 1.0 : 0.0)
+                        , (double) descriptionLength
+                        , (double) numberOfCommenter
+                        , (double) issueDeveloperCommitExperience
+                        , (double) issueDeveloperFixCommitExperience
+                        , (double) fixingDeveloperCommitExperience
+                        , (double) fixingDeveloperFixingExperience
+                        , socialStrength
+                        , locFixMean
+                        , locFixMedian
+                        , deltaWMCmean
+                        , delaWMCmedian
+                        , readabilityMean
+                        , readabilityMedian
+                        , cdMean
+                        , cdMedian
+                        , CBOMean
+                        , CBOMedian
+                        , DITMean
+                        , DITMedian
+                        , locPreFixMean
+                        , locPreFixMedian
+                        , LCOMMean
+                        , LCOMMedian
+                        , NOCMean
+                        , NOCMedian
+                        , NOFMean
+                        , NOFMedian
+                        , NOMMean
+                        , NOMMedian
+                        , NOPMMean
+                        , NOPMMedian
+                        , NOPFMean
+                        , NOPFMedian
+                        , NOSMMean
+                        , NOSMMedian
+                        , NOSFMean
+                        , NOSFMedian
+                        , NOSIMean
+                        , NOSIMedian
+                        , RFCMean
+                        , RFCMedian
+                        , wmcPreFixMean
+                        , wmcPreFixMedian
+                        , bugIssue.isReopen()
+
+                );
+
+                metricList.add(metric);
             }
-
-            double locFixMean = getMean(locFix);
-            double locFixMedian = getMedian(locFix);
-            double wmcFixMean = getMean(wmcFix);
-            double wmcFixMedian = getMedian(wmcFix);
-
-            // Ck metric calculation PreFix Commit
-            //checkout to previousCommit
-            GitCommands.applyCheckout(fixCommit.getId() + "^", destinationFolder, gitCommand, destinationFolder, repoDir);
-            //copy the files which has been modified in the Fix commit
-            copyFiles(fixCommit.getModifiedFiles());
-
-            //Ck attributes
-            CKReport ckPrefix = new CK().calculate(modifiedFilesDir);
-            Iterator itPreFix = ckPrefix.all().iterator();
-            List<Integer> locPreFix = new ArrayList<>();
-            List<Integer> wmcPreFix = new ArrayList<>();
-            List<Integer> CBO = new ArrayList<>();
-            List<Integer> DIT = new ArrayList<>();
-            List<Integer> NOC = new ArrayList<>();
-            List<Integer> NOF = new ArrayList<>();
-            List<Integer> NOPF = new ArrayList<>();
-            List<Integer> NOSF = new ArrayList<>();
-            List<Integer> NOM = new ArrayList<>();
-            List<Integer> NOPM = new ArrayList<>();
-            List<Integer> NOSM = new ArrayList<>();
-            List<Integer> NOSI = new ArrayList<>();
-            List<Integer> RFC = new ArrayList<>();
-            List<Integer> LCOM = new ArrayList<>();
-
-            while (itPreFix.hasNext()) {
-                CKNumber ckNumberPreFix = (CKNumber) itPreFix.next();
-                locPreFix.add(ckNumberPreFix.getLoc());
-                wmcPreFix.add(ckNumberPreFix.getWmc());
-                CBO.add(ckNumberPreFix.getCbo());
-                DIT.add(ckNumberPreFix.getDit());
-                NOC.add(ckNumberPreFix.getNoc());
-                NOF.add(ckNumberPreFix.getNof());
-                NOPF.add(ckNumberPreFix.getNopf());
-                NOSF.add(ckNumberPreFix.getNosf());
-                NOM.add(ckNumberPreFix.getNom());
-                NOPM.add(ckNumberPreFix.getNopm());
-                NOSM.add(ckNumberPreFix.getNosm());
-                NOSI.add(ckNumberPreFix.getNosi());
-                RFC.add(ckNumberPreFix.getRfc());
-                LCOM.add(ckNumberPreFix.getLcom());
-
-
-            }
-
-            double locPreFixMean = getMean(locPreFix);
-            double locPreFixMedian = getMedian(locPreFix);
-
-            double wmcPreFixMean = getMean(wmcPreFix);
-            double wmcPreFixMedian = getMedian(wmcPreFix);
-
-            double CBOMean = getMean(CBO);
-            double CBOMedian = getMedian(CBO);
-
-            double DITMean = getMean(DIT);
-            double DITMedian = getMedian(DIT);
-
-            double NOCMean = getMean(NOC);
-            double NOCMedian = getMedian(NOC);
-
-            double NOFMean = getMean(NOF);
-            double NOFMedian = getMedian(NOF);
-
-            double NOPFMean = getMean(NOPF);
-            double NOPFMedian = getMedian(NOPF);
-
-            double NOSFMean = getMean(NOSF);
-            double NOSFMedian = getMedian(NOSF);
-
-            double NOMMean = getMean(NOM);
-            double NOMMedian = getMedian(NOM);
-
-            double NOPMMean = getMean(NOPM);
-            double NOPMMedian = getMedian(NOPM);
-
-            double NOSMMean = getMean(NOSM);
-            double NOSMMedian = getMedian(NOSM);
-
-            double NOSIMean = getMean(NOSF);
-            double NOSIMedian = getMedian(NOSF);
-
-            double RFCMean = getMean(RFC);
-            double RFCMedian = getMedian(RFC);
-
-            double LCOMMean = getMean(LCOM);
-            double LCOMMedian = getMedian(LCOM);
-
-
-            List<Double> readabilityList = getReadability(modifiedFilesDir);
-            double readabilityMean = getMeanDouble(readabilityList);
-            double readabilityMedian = getMedianDouble(readabilityList);
-
-            List<Double> CD = getCommentDensity(modifiedFilesDir);
-            double cdMean = getMeanDouble(CD);
-            double cdMedian = getMedianDouble(CD);
-
-            double deltaWMCmean = wmcFixMean - wmcPreFixMean;
-            double delaWMCmedian = wmcFixMedian - wmcPreFixMedian;
-
-
-            //create Metric object
-
-
-            Metric metric = new Metric(((stepToReproduce) ? 1.0 : 0.0)
-                    , ((expectedBehaviour) ? 1.0 : 0.0)
-                    , (double) descriptionLength
-                    , (double) numberOfCommenter
-                    , (double) issueDeveloperCommitExperience
-                    , (double) issueDeveloperFixCommitExperience
-                    , (double) fixingDeveloperCommitExperience
-                    , (double) fixingDeveloperFixingExperience
-                    , socialStrength
-                    , locFixMean
-                    , locFixMedian
-                    , deltaWMCmean
-                    , delaWMCmedian
-                    , readabilityMean
-                    , readabilityMedian
-                    , cdMean
-                    , cdMedian
-                    , CBOMean
-                    , CBOMedian
-                    , DITMean
-                    , DITMedian
-                    , locPreFixMean
-                    , locPreFixMedian
-                    , LCOMMean
-                    , LCOMMedian
-                    , NOCMean
-                    , NOCMedian
-                    , NOFMean
-                    , NOFMedian
-                    , NOMMean
-                    , NOMMedian
-                    , NOPMMean
-                    , NOPMMedian
-                    , NOPFMean
-                    , NOPFMedian
-                    , NOSMMean
-                    , NOSMMedian
-                    , NOSFMean
-                    , NOSFMedian
-                    , NOSIMean
-                    , NOSIMedian
-                    , RFCMean
-                    , RFCMedian
-                    , wmcPreFixMean
-                    , wmcPreFixMedian
-                    , bugIssue.isReopen()
-
-            );
-
-            metricList.add(metric);
         }
-        return getBalancedList(metricList);
+        getBalancedList(metricList, fileName);
 
     }
 
@@ -289,7 +290,6 @@ public class MetricCalculator {
 
         Iterator it = FileUtils.iterateFiles(new File(modifiedFilesDir), null, false);
         while (it.hasNext()) {
-            // System.out.println(((File) it.next()).getName());
             File file = ((File) it.next());
             String fileContent = FileUtils.readFileToString(file);
             list.add(raykernel.apps.readability.eval.Main.getReadability(fileContent));
@@ -300,6 +300,9 @@ public class MetricCalculator {
 
 
     private static double getMedian(List<Integer> loc) {
+        if (loc.size() == 0) {
+            return 0.0;
+        }
         double sum = 0.0;
         for (int value : loc
                 ) {
@@ -328,6 +331,11 @@ public class MetricCalculator {
 
 
     private double getMedianDouble(List<Double> loc) {
+        if (loc.size() == 0) {
+            return 0.0;
+        }
+
+
         double sum = 0.0;
         for (Number value : loc
                 ) {
@@ -374,7 +382,7 @@ public class MetricCalculator {
     }
 
 
-    public void writeToFile(String arffFilePath, List<Metric> metricList) throws FileNotFoundException {
+    private void writeToFile(String arffFilePath, List<Metric> metricList) throws FileNotFoundException {
 
         PrintWriter printer = new PrintWriter(arffFilePath);
         printer.println("@relation reopenBugInFuture");
@@ -488,16 +496,22 @@ public class MetricCalculator {
     }
 
 
-    private List<Metric> getBalancedList(List<Metric> metricList) {
-        List<Metric> balancedList = metricList.stream().filter(x -> x.isReopen()).collect(Collectors.toList());
+    private void getBalancedList(List<Metric> metricList, String fileName) throws FileNotFoundException {
+        List<Metric> reopenedList = metricList.stream().filter(x -> x.isReopen()).collect(Collectors.toList());
         List<Metric> notReopenList = metricList.stream().filter(x -> !x.isReopen()).collect(Collectors.toList());
-        int nonReopenSize = balancedList.size() * 2;
+        int nonReopenSize = reopenedList.size() * 2;
         Random randomGenerator = new Random();
-        for (int i = 0; i < nonReopenSize; i++) {
-            int index = randomGenerator.nextInt(notReopenList.size());
-            balancedList.add(notReopenList.get(index));
+
+        for (int i = 0; i < 10; i++) {
+            List<Metric> balancedList = metricList.stream().filter(x -> x.isReopen()).collect(Collectors.toList());
+            for (int j = 0; j < nonReopenSize; j++) {
+                int index = randomGenerator.nextInt(notReopenList.size());
+                balancedList.add(notReopenList.get(index));
+            }
+            writeToFile(fileName + (i + 1) + ".arff", balancedList);
         }
-        return balancedList;
+
+
     }
 
 
