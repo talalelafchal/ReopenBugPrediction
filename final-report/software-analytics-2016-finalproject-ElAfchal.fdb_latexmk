@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex software-analytics-2016-finalproject-ElAfchal"] 1494880549 "software-analytics-2016-finalproject-ElAfchal.aux" "software-analytics-2016-finalproject-ElAfchal.bbl" "software-analytics-2016-finalproject-ElAfchal" 1494923224
+["bibtex software-analytics-2016-finalproject-ElAfchal"] 1494880549 "software-analytics-2016-finalproject-ElAfchal.aux" "software-analytics-2016-finalproject-ElAfchal.bbl" "software-analytics-2016-finalproject-ElAfchal" 1494925066
   "./ACM-Reference-Format.bst" 1488211499 92415 b8fbb6cc792f0933ad6e1e9a933d53d6 ""
   "bibliography.bib" 1494766502 817 416a1d3279c7950f278fee7239c93c6e ""
-  "software-analytics-2016-finalproject-ElAfchal.aux" 1494923223 4326 538b4892c61a9c2fb8cf32dac10d2899 ""
+  "software-analytics-2016-finalproject-ElAfchal.aux" 1494925065 4326 538b4892c61a9c2fb8cf32dac10d2899 ""
   "software-analytics-2016-finalproject-ElAfchal.bcf" 0 -1 0 ""
   (generated)
   "software-analytics-2016-finalproject-ElAfchal.bbl"
   "software-analytics-2016-finalproject-ElAfchal.blg"
-["pdflatex"] 1494923220 "software-analytics-2016-finalproject-ElAfchal.tex" "software-analytics-2016-finalproject-ElAfchal.pdf" "software-analytics-2016-finalproject-ElAfchal" 1494923224
+["pdflatex"] 1494925062 "software-analytics-2016-finalproject-ElAfchal.tex" "software-analytics-2016-finalproject-ElAfchal.pdf" "software-analytics-2016-finalproject-ElAfchal" 1494925066
   "/Users/Talal/Library/texlive/2016/texmf-var/luatex-cache/generic/fonts/otl/linbiolinum-k.luc" 1494403291 85689 4e6596f5599c7fbbd9ad179232243550 ""
   "/Users/Talal/Library/texlive/2016/texmf-var/luatex-cache/generic/fonts/otl/linbiolinum-r.luc" 1494403286 294491 a831500dac865a719520f1240ed025fc ""
   "/Users/Talal/Library/texlive/2016/texmf-var/luatex-cache/generic/fonts/otl/linbiolinum-rb.luc" 1494403286 297252 03396792c4ad04b34ee7488a7fa7f69a ""
@@ -249,13 +249,13 @@
   "/usr/local/texlive/2016/texmf-var/web2c/luatex/lualatex.fmt" 1492507937 1200793 5223c41d446d568d0ad07f0c93d02976 ""
   "acmart.cls" 1494770468 69942 d3ed3574ad1add732164e5fff1e7d8b4 ""
   "j48.png" 1494923152 138589 09aeeae29eebc165b27813af23861c83 ""
-  "software-analytics-2016-finalproject-ElAfchal.aux" 1494923223 4326 538b4892c61a9c2fb8cf32dac10d2899 ""
+  "software-analytics-2016-finalproject-ElAfchal.aux" 1494925065 4326 538b4892c61a9c2fb8cf32dac10d2899 ""
   "software-analytics-2016-finalproject-ElAfchal.bbl" 1494880549 2711 c984983235bfb0281facd77dd90f42c9 "bibtex software-analytics-2016-finalproject-ElAfchal"
-  "software-analytics-2016-finalproject-ElAfchal.out" 1494923223 925 0a66b0a8298f64e9e6ec44af7e80d060 ""
-  "software-analytics-2016-finalproject-ElAfchal.tex" 1494923219 32259 c8ff59eac3d4c8949908a1e748a6b971 ""
+  "software-analytics-2016-finalproject-ElAfchal.out" 1494925065 925 0a66b0a8298f64e9e6ec44af7e80d060 ""
+  "software-analytics-2016-finalproject-ElAfchal.tex" 1494925061 32259 e3eb6cea6853482fd9a14e2471f6d14d ""
   (generated)
-  "/Users/Talal/Library/texlive/2016/texmf-var/m_t_x_t_e_s_t.tmp"
   "software-analytics-2016-finalproject-ElAfchal.out"
-  "software-analytics-2016-finalproject-ElAfchal.aux"
   "software-analytics-2016-finalproject-ElAfchal.log"
   "software-analytics-2016-finalproject-ElAfchal.pdf"
+  "/Users/Talal/Library/texlive/2016/texmf-var/m_t_x_t_e_s_t.tmp"
+  "software-analytics-2016-finalproject-ElAfchal.aux"
