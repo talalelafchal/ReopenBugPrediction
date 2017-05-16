@@ -490,6 +490,9 @@ INPUT /usr/local/texlive/2016/texmf-dist/fonts/vf/public/newtx/ntxsyc.vf
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/tfm/public/newtx/ntxexa.tfm
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/vf/public/newtx/ntxexa.vf
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/tfm/public/txfonts/txexa.tfm
+INPUT ./j48.png
+INPUT ./j48.png
+INPUT j48.png
 INPUT /Users/Talal/Library/texlive/2016/texmf-var/luatex-cache/generic/fonts/otl/lmroman7-regular.luc
 INPUT /Users/Talal/Library/texlive/2016/texmf-var/luatex-cache/generic/fonts/otl/lmroman6-regular.luc
 INPUT ./software-analytics-2016-finalproject-ElAfchal.bbl
@@ -497,6 +500,7 @@ INPUT ./software-analytics-2016-finalproject-ElAfchal.bbl
 INPUT ./software-analytics-2016-finalproject-ElAfchal.aux
 INPUT ./software-analytics-2016-finalproject-ElAfchal.out
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb
+INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/newtx/fxlri-7letters.pfb
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/txfonts/txsy.pfb
 INPUT /usr/local/texlive/2016/texmf-dist/fonts/type1/public/newtx/zxlri.pfb
